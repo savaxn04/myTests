@@ -1,12 +1,37 @@
 const { test, expect } = require('@playwright/test');
+import HomePage from './support/pages/home.page';
+import SearchPage from './support/pages/Search.page';
+import HeaderSection from './support/section/header.section';
 
 const firstName = 'test'
 const lastName = 'test'
 const email = 'test@qweqwe.qweqwe'
 const password = 'qweqwe'
 
+test('test with page object pattern', async ({ browser }) => {
+  const context = await browser.newContext();
+  const firstPage = new HomePage(await context.newPage());
+  await firstPage.visit();
+  const secondPage = new HomePage(await context.newPage());
+  await secondPage.visit();
+  const allPages = context.pages();
 
-test.only('redirecting test', async ({ browser }) => {
+  //actions on first main page
+  await allPages[0].bringToFront();
+  const cardTitles = await firstPage.getCardTitles();
+  /*const cardTitle = await fisrtCardTitle.textContent();
+  await console.log(cardTitle);
+
+  //redirecting to the second page and other actions
+  await allPages[1].bringToFront();
+  await inputSearchField.click();
+  await inputSearchField.fill(cardTitle.trim());
+  await searchButton.click();*/
+  await expect (cardTitleSecondPageElement.first()).toBeVisible();
+});
+
+
+test('redirecting test', async ({ browser }) => {
   //browser and page initialize 
   const context = await browser.newContext();
 
@@ -26,7 +51,7 @@ test.only('redirecting test', async ({ browser }) => {
   //actions on first main page
   await allPages[0].bringToFront();
   const cardTitle = await fisrtCardTitle.textContent();
-  await console.log(cardTitle);
+  console.log(cardTitle);
 
   //redirecting to the second page and other actions
   await allPages[1].bringToFront();
@@ -58,7 +83,7 @@ test('Sign up test', async ({ page }) => {
   await popUpHeadingElement.isVisible();
   await closePopUpButton.click();
   const cardTitle = await fisrtCardTitle.textContent();
-  await console.log(cardTitle);
+  console.log(cardTitle);
   await expect(fisrtCardTitle).toContainText("TP Junior Chef Wooden Mud Kitchen with Working Tap & Sink - FSC")
 
 
@@ -75,7 +100,6 @@ test('Sign up test', async ({ page }) => {
 //login test
 test('login test', async ({ page }) => {
   const accountButton = page.locator('//a[@class="account"]')
-  
   const emailFieldSignUp = page.locator("//input[@name='customer[email]']")
   const passwordFieldSignUp = page.locator("//input[@name='customer[password]']")
   const signInButton = page.getByRole("button", {name: "Sign in"})
