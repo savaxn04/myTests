@@ -3,9 +3,5 @@ export default class SearchPage{
         this.page = page;
     }
 
-    //locators
-    cardTitle = () => this.page.locator("//a[@class='product-title']");
-    
-    //actions
     
 }
