@@ -1,5 +1,4 @@
 // @ts-check
-const { devices } = require('@playwright/test');
 
 /**
  * @see https://playwright.dev/docs/test-configuration

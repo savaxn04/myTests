@@ -1,7 +1,7 @@
-const { test, expect } = require('@playwright/test');
-import HomePage from './support/pages/home.page';
-import SearchPage from './support/pages/Search.page';
-import HeaderSection from './support/section/header.section';
+import HomePage from "./support/pages/Home.page.js";
+import HeaderSection from "./support/section/Header.section";
+
+import { test, expect } from "playwright/test"
 
 const firstName = 'test'
 const lastName = 'test'
@@ -16,7 +16,7 @@ test("Verify that page title is 'Black Friday Deals – TP Toys'", async ({ brow
 
 /* E2E TEST STEPS
 1. goto page
-2. click on the account icon in the header
+2. Click on the account icon in the header
 3. Click on the Sigh Up button
 4. Fill the fields 
 5. Click on the Sign Up button
@@ -30,11 +30,12 @@ test("Verify that page title is 'Black Friday Deals – TP Toys'", async ({ brow
 13. Verify that Klarna page is loaded*/
 
 test("Verify that search is correctly working", async ({ browser, page }) => {
+  //go to home page
   let homePage = new HomePage(page);
   await homePage.visit();
   let headerSection = new HeaderSection(page);
-  let searchPage = await headerSection.searchProduct("TP Explor");
-  let cardTitles = await searchPage.getCardTitles()
+  let loginPage = await headerSection.clickAccountBtn();
+  await loginPage.clickSignUpBtn();
   console.log(cardTitles);
   await expect(page).toHaveURL('https://www.tptoys.com/search?type=product&q=TP+Explorer+Metal+Climbing+Frame+Black+Edition+-+Builder');
 })
