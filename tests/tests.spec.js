@@ -35,8 +35,12 @@ test("Verify that search is correctly working", async ({ browser, page }) => {
   await homePage.visit();
   let headerSection = new HeaderSection(page);
   let loginPage = await headerSection.clickAccountBtn();
-  await loginPage.clickSignUpBtn();
-  console.log(cardTitles);
-  await expect(page).toHaveURL('https://www.tptoys.com/search?type=product&q=TP+Explorer+Metal+Climbing+Frame+Black+Edition+-+Builder');
+  let signUpPage = await loginPage.clickSignUpBtn();
+  await signUpPage.fillFirstNameField(firstName);
+  await signUpPage.fillLastNameField(lastName);
+  await signUpPage.fillEmailField(email);
+  await signUpPage.fillPasswordField(password);
+  await signUpPage.clickSignUpBtn();
+  await expect(page).toHaveURL('https://www.tptoys.com/?register_popup=show');
 })
 

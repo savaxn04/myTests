@@ -7,13 +7,13 @@ export default class HeaderSection{
     }
 
     //locators
-    inputSearchField = () => this.page.getByPlaceholder("Search")
+    searchField = () => this.page.getByPlaceholder("Search")
     searchButton = () => this.page.locator("#submit_search")
     accountButton = () => this.page.locator("a.account")
 
     //actions
     searchProduct = async (productTitle) => {
-        await this.inputSearchField().fill(productTitle);
+        await this.searchField().fill(productTitle);
         await this.searchButton().click();
         return new SearchPage(this.page);
     }
